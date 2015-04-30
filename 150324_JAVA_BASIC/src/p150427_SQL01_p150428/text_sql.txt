@@ -1,0 +1,496 @@
+
+1. desc <table/view> : plsql. ¼¼¹ÌÄİ·Ğ ÇÊ¿ä¾øÀ½. ÇÊµå Á¤º¸¸¦ Ãâ·Â
+
+2. select * from <table/view> where <selection>		: ¸ğµç ÇÊµå Á¶È¸
+	projection : ¿­(ÇÊµå) ¼±ÅÃ
+	selection : Çà(·¹ÄÚµå) ¼±ÅÃ
+
+3. select <projection> from <table/view> where <selection> : Æ¯Á¤ ÇÊµå Á¶È¸\
+
+	¡Ø ÀÚ·áÇü.
+	varchar : 256¹ÙÀÌÆ®±îÁö¸¸ °¡´É. »ç¿ëÀÌ °ÅÀÇ ¾øÀ½.
+	varchar2 : 4000ÀÚ ±îÁö °¡´É.
+	number(4) : 9999±îÁö
+	date : ³¯Â¥, ½Ã°£ Á¤º¸.
+
+	select sysdate from dual;
+		-- dualÀº Å×ÀÌºí Á¤º¸°¡ ÇÊ¿ä ¾øÀ» °æ¿ì¿¡ ¾²ÀÌ´Â dummyÅ×ÀÌºí. --	
+
+4. È­¸éÀ» º¸±â ÁÁ°Ô Ãâ·Â.
+	col empno for 9999 => empno ¼ıÀÚ 4ÀÚ¸®·Î Ãâ·Â
+	col ename for a8 => ename ÄÃ·³ ÀÚ¸®¼ö¸¦ 8ÀÚ¸®·Î Ãâ·Â.
+	set line 50 : ¶óÀÎÀÇ ÃÖ´ëÀÚ¸®¸¦ 50À¸·Î ÇÑ´Ù.
+	set pagesize 20;	=> ÆäÀÌÁö¸¦ 20ÁÙ ±îÁö·Î ¼³Á¤.
+	
+5. ÄÃ·³¿¡ ¸®ÅÍ·² Ãß°¡ÇÏ±â.
+	select studno, name, grade from student;
+		=> select 'ÇĞ¹ø : ', studno, 'ÀÌ¸§ : ', name, grade, 'ÇĞ³â' from student ;
+		
+	desc professor;
+	select name, '±³¼ö´Ô Á¹·Á¿ä~' from professor;
+	
+	select name,POSITION  from professor;
+	
+	desc emp
+	select ename,'´Ô ¹İ°©½À´Ï´Ù!', hiredate from emp;
+	
+6. ÄÃ·³¿¡ º°Äª ÁÖ±â
+	select studno ÇĞ¹ø, name ÀÌ¸§, profno Áöµµ±³¼ö¹øÈ£ from student;
+	
+	' ' : ¿À¶óÅ¬¿¡¼­´Â ¹®ÀÚ¿­ Ç¥Çö.
+	" " : ¿À¶óÅ¬¿¡¼­´Â º°ÄªÀ¸·Î ÀÎ½Ä.
+			´Ü, º°ÄªÁÖ±â¿¡¼­´Â »ı·« °¡´ÉÇÔ.
+			°ø¹éÀÌ ÀÖÀ» °æ¿ì, ¹İµå½Ã »ç¿ë.
+			
+	select empno »ç¿ø¹øÈ£, ename »ç¿ø¸í, job Á÷¾÷ from emp;
+	select deptno "ºÎ ¼­ #", dname "ºÎ ¼­ ¸í", loc "À§   Ä¡" from dept;
+	
+	
+---------
+
+7. Áßº¹ Á¦°Å : distinct => ´Ü ÇÏ³ªÀÇ ÇÊµå¿¡¸¸ »ç¿ë°¡´É. ºñ¿ëÀÌ Å­.
+	select distinct deptno1 from student; 
+	select distinct profno from student;
+	select distinct deptno1, deptno2 from student;
+
+8. ¿¬°á¿¬»êÀÚ : || => µÎ°³ÀÇ ÄÃ·³À» ¿¬°áÇÏ´Â ¿¬»êÀÚ
+	select name ||' '|| position "±³  ¼ö" from professor;
+	select name || 'ÀÇ Å°´Â' || height || 'cm, ¸ö¹«°Ô´Â ' || weight || 'kg ÀÔ´Ï´Ù.' 
+		"ÇĞ»ıÀÇ Å°¿Í ¸ö¹«°Ô" from student;
+	select name || '(' || position || '), ' || name || '''' || position || '''' ±³¼ö´Ô from professor;
+		
+9. »ê¼ú¿¬»êÀÚ : »ê¼ú°á°ú¸¦ Ä®·³À¸·Î Ãâ·Â
+	select ename, sal, sal + 100/2, (sal + 100) / 2 from emp;
+	select ename »ç¿øÀÌ¸§, sal ÇöÀç±Ş¿©, sal * 1.1 ÀÎ»ó¿¹»ó±Ş¿© from emp;
+
+10. where Á¶°ÇÀı
+	select ename, sal, deptno from emp where deptno = 10;
+	select ename, sal from emp where sal > 4000;
+	select ename, empno, sal from emp where ename='SCOTT';
+	select name, hiredate from professor where hiredate >= '00/01/01';
+	select name , height from student where height >= 180;
+	select name, height, weight from student where weight >= 70 and height >= 180;
+	select name, weight from student where weight between 60 and 80;
+	select name, weight, deptno1 from student where deptno1 = 101 and weight between 50 and 80; 
+	
+11. in ¿¬»êÀÚ	
+	select studno, name, height, weight, deptno1 from student where deptno1 in (101,201) and height >= 170;
+	
+12. like ¿¬»êÀÚ( % : 0°³ ÀÌ»óÀÇ ¹®ÀÚ, _ : 1°³ÀÇ ÀÚ¸®¼ö )	
+	select name, deptno1 from student where name like '±è%';
+	select name, deptno1 from student where name like '±è__';
+	select name, deptno1 from student where name like 'Çã%';
+	select name, deptno1 from student where name like 'Çã_';
+	select name, deptno1 from student where name like '¼­%¼ö';
+	select name, deptno1 from student where name like '%½Å%';
+	select name, studno, tel from student where tel like '02%';
+	
+13. not like
+	select name, studno, tel from student where tel not like '02%';
+	
+14. is null, is not null
+	select name, bonus, position from professor where bonus is not null;
+	select studno, name, profno, deptno1 from student where profno is null;
+	select name from professor where 'ÀÚ' <= name AND name < 'Â÷';
+	select name from professor where name between 'ÀÚ' and 'ÂöÆRÆRÆRÆRÆRÆRÆR';
+	
+15. order by : Á¤·ÄÇÏ±â. select¹®ÀÇ ¸¶Áö¸·¿¡ ÀÛ¼º. Â÷¼ø »ı·«½Ã ASC.
+	select name, height from student where grade = 1 order by height;
+	select name, height from student where grade = 1 order by height DESC;
+	select name, height from student where grade = 1 order by 2  ASC;
+	select name, height Å° from student where grade = 1 order by Å° DESC;
+	select name ÀÌ¸§, grade ÇĞ³â, studno ÇĞ¹ø from student order by grade,name; 
+	
+-----
+
+16. ÁıÇÕ¿¬»êÀÚ
+	union : ÇÕÁıÇÕ(Áßº¹Á¦°Å)
+	union all : ÇÕÁıÇÕ(Áßº¹°¡´É)
+	intersect : ±³ÁıÇÕ
+	minus : Â÷ÁıÇÕ
+	
+	select profno ¹øÈ£, name||' ±³¼ö' ÀÌ¸§, deptno1 ÇĞ°ú from student where deptno1 = '101'
+	union all
+	select profno, name||' ÇĞ»ı', deptno from professor where deptno = '101';
+	
+	select name from student where deptno1 = '101'
+	union 
+	select name from student where deptno2 = '201';
+	
+	select name from student where deptno1 = '101'
+	intersect
+	select name from student where deptno2 = '201';
+	
+	select name from student where deptno1 = '101'
+	minus
+	select name from student where deptno2 = '201';
+	
+	select name, pay, position from professor
+	minus
+	select name, pay, position from professor
+	where position = 'ÀüÀÓ°­»ç';
+	
+17. ´ÜÀÏÇà ÇÔ¼ö : Ã³À½ À§Ä¡´Â 0ÀÌ ¾Æ´Ñ 1
+	<¹®ÀÚ¿­ °ü·Ã ÇÔ¼ö>
+	INITCAP	Ã¹¹®ÀÚ¸¸ ´ë¹®ÀÚ·Î
+	LOWER		¼Ò¹®ÀÚ·Î
+	UPPER		´ë¹®ÀÚ·Î
+	LENGTH	±æÀÌ
+	LENGTHB	¹ÙÀÌÆ® ±æÀÌ
+	CONCAT	¹®ÀÚ¿­ ÇÕÄ¡±â
+	SUBSTR	¹®ÀÚ¿­¿¡¼­ Æ¯Á¤ ¹üÀ§ÀÇ ¹®ÀÚ¿­ ÃßÃâ
+	SUBSTRB	¹®ÀÚ¿­¿¡¼­ Æ¯Á¤ ¹ÙÀÌÆ® ¹üÀ§ÀÇ ¹®ÀÚ¿­ ÃßÃâ
+	INSTR		Æ¯Á¤¹®ÀÚ À§Ä¡
+	INSTRB		Æ¯Á¤¹®ÀÚ ¹ÙÀÌÆ®À§Ä¡
+	LPAD		¿ŞÂÊ¿¡ ¹®ÀÚ¸¦ Ãß±â
+	RPAD		¿À¸¥ÂÊ¿¡ ¹®ÀÚ¸¦ Ãß°¡
+	LTRIM		¿ŞÂÊ¿¡ À§Ä¡ÇÑ ÁöÁ¤¹®ÀÚ Á¦°Å
+	RTRIM		¿À¸¥ÂÊ¿¡ À§Ä¡ÇÑ ÁöÁ¤¹®ÀÚ Á¦°Å
+	REPLACE	Æ¯Á¤À§Ä¡¸¦ ÁöÁ¤¹®ÀÚ·Î Ä¡È¯
+	REGEXP_LIKE	Á¤±Ô½Ä¿¡ ÀÏÄ¡ÇÏ´Â ·¹ÄÚµå °Ë»ö.
+	REGEXP_REPLACE 	Á¤±Ô½ÄÀÇ ÇüÅÂ·Î Ä¡È¯.
+	REGEXP_INSTR		Á¤±ÔÇüÀÇ ¹®ÀÚ Ã£±â
+	REGEXP_SUBSTR		Á¤±ÔÇüÀÌ ³ªÅ¸³ª´Â ºÎºĞ¹®ÀÚ¿­ ¹İÈ¯
+	
+select id, initcap(id) from student where deptno1 = '101';
+select id, initcap(id) lower(id), upper(id) from student where deptno1 = '101';
+
+select name,id, length(id) from student where length(id) >= 9;
+select name, studno, deptno1,grade from student where length(name) <> 3;
+
+select concat(name,position),name || position from professor;
+select concat(name,concat('=',position)),name || '=' || position from professor;
+
+select name,substr(jumin,1,6)  »ı³â¿ùÀÏ from student;
+select name,substr(jumin,1,6)  »ı³â¿ùÀÏ from student where substr(jumin,3,2) = '03';
+select name,substr(jumin,1,2)||'³â'|| substr(jumin,3,2) ||'¿ù'|| 
+	substr(jumin,5,2) ||'ÀÏ' »ı³â¿ùÀÏ  from student;
+	
+select name,substr(jumin,1,2)||'³â'|| substr(jumin,3,2) ||'¿ù'|| 
+	substr(jumin,5,2) ||'ÀÏ' »ı³â¿ùÀÏ  from student
+	order by substr(jumin,3,2),substr(jumin,5,2);
+	
+select sysdate from dual;
+select instr('A*B*C', '*',1,2) from dual;
+		-- 'A*B*C' ¿¡¼­ 1¹øÂ° ºÎÅÍ ½ÃÀÛÇØ¼­, µÎ¹øÂ° '*'ÀÇ À§Ä¡¹İÈ¯. --
+select instr('A*B*C', '*',-4,1) from dual; 
+		-- 'A*B*C' ÀÇ µÚ¿¡¼­ 4¹øÂ°ºÎÅÍ 1¹øÂ° '*'À» Ã£¾Æ À§Ä¡¹İÈ¯ --
+select instr('A*B*C', '*',-4,2) from dual;
+		-- Á¸ÀçÇÏÁö ¾ÊÀ¸¸é 0À» ¹İÈ¯ -- 
+select name,tel,instr(tel,')',1,1) from student;
+select name,tel,substr(tel,1,instr(tel,')',1,1)-1) from student;
+
+select name, lpad(id,10,'$') "ID" from student;
+select name, rpad(position,12,'*') from professor;
+select lpad(dname,10,'1234567890') from dept2; 
+select dname,rpad(dname,10,substrb('1234567890',lengthb(dname)+1)) from dept2;
+
+select dname, ltrim(dname,'¿µ') from dept2;
+select dname, rtrim(dname,'ÆÀ') from dept2;
+
+select replace(name,substr(name,1,1),'#') from student;
+select replace(name,substr(name,2,1),'#') from student where deptno1 = 101;
+select name,replace(jumin,substr(jumin,length(jumin)-7+1,7),'*******') jumin 
+	from student  where deptno1 = 101 ;
+select name,tel, 
+replace(    tel,    substr( tel, instr(tel,')', 1, 1)+1 , instr(tel,'-', 1, 1) - instr(tel,')', 1, 1) - 1  ),  '###'   )  
+	from student 
+	where deptno1 = 102 ;	
+	
+select * from reg_test where regexp_like(text,'[a-z][0-9]');
+	-- [a-z][0-9] : ¼Ò¹®ÀÚ¿Í ¼ıÀÚÀÇ È¥ÇÕµÈ ³»¿ë °Ë»ö --
+select * from reg_test where regexp_like(text,'[0-9][a-z]');
+	-- ¼ø¼­¸¦ µû¸£±â ¶§¹®¿¡, À§ÀÇ °á°ú¿Í ´Ù¸§. --
+select * from reg_test where regexp_like(text,'[0-9]?[a-z]');
+	-- ? : 0°³ ¶Ç´Â 1°³ÀÇ ¹®ÀÚ°¡ ¿Ã¼ö ÀÖÀ½. --
+	-- * : 0°³ ÀÌ»óÀÇ ¹®ÀÚ°¡ ¿Ã ¼ö ÀÖÀ½. --
+	-- $ : ³¡³ª´Â ¹®ÀÚ Ã£±â. --
+	-- ^ : ½ÃÀÛÇÏ´Â ¹®ÀÚ Ã£±â. --
+	-- . : °ø¹é --
+select * from dept2 where regexp_like(area,'¼­¿ï');
+select * from dept2 where regexp_like(dname,'ºÎ$');
+	-- 'ºÎ'·Î ³¡³ª´Â ºÎ¼­¸í Ã£±â --  
+select * from reg_test where regexp_like(text,'[A-Z]{3}');
+	-- ´ë¹®ÀÚ°¡ 3°³ ÀÌ»óÀ» Æ÷ÇÔÇÏ´Â textÇÊµåÀÇ ¼¿À» °¡Áø ·¹ÄÚµå¸¦ Ã£±â. --
+select * from reg_test where regexp_like(text, '[0-9][A-Z]{3}');
+	-- ¼ıÀÚ¿Í ´ë¹®ÀÚ°¡ ÇÔ²² ¿À¸é¼­ 3±ÛÀÚ ÀÌ»ó --
+select * from reg_test where regexp_like(text,'^[a-z]|^[0-9]');
+	-- ¼Ò¹®ÀÚ·Î ½ÃÀÛÇÏ°Å³ª, ¼ıÀÚ·Î ½ÃÀÛ --
+select * from reg_test where regexp_like(text, '^[^0-9]');
+	-- ¼ıÀÚ·Î ½ÃÀÛÇÏÁö ¾ÊÀ½. [] ¾ÈÀÇ ^ ´Â notÀ» ÀÇ¹Ì. --
+select * from reg_test where regexp_like(text,'A|1');
+	-- A ¶Ç´Â 1À» Æ÷ÇÔ --
+select * from reg_test where not regexp_like(text,'[A-Z]|[a-z]');
+	-- ¿µ¹®ÀÚ¸¦ Æ÷ÇÔÇÏÁö ¾ÊÀ½ --
+select * from reg_test where not regexp_like(text,'[0-9]');
+	-- ¼ıÀÚ¸¦ Æ÷ÇÔÇÏÁö ¾ÊÀ½ --
+select * from reg_test where regexp_like(text,'\?');
+	-- ?¸¦ Æ÷ÇÔ --
+
+col ¼ıÀÚ->±âÈ£ for a15
+select text, regexp_replace(text,'[[:digit:]]','+') "¼ıÀÚ->±âÈ£" from reg_test;
+	-- ¼ıÀÚ¸¦ ±âÈ£·Î Ä¡È¯ --
+col ÆĞÅÏÃß°¡ for a15	
+select text , regexp_replace (text, ' ([0-9])','\1*') "ÆĞÅÏÃß°¡" from reg_test
+	where text <> regexp_replace (text, ' ([0-9])','\1*');
+	-- \1 : ÆĞÅÏÀÌ ³ªÅ¸³ª´Â 1¹øÂ° µ¥ÀÌÅÍ -- 
+select name, tel from student 
+	where regexp_replace(tel, '(\d{2})\)(\d{4})\-(\d{4})','\2*') > '1000';
+	-- ÆĞÅÏ¿¡ ¸Â´Â ÀüÈ­¹øÈ£  "2ÀÚ¸® ) 4ÀÚ¸® - 4ÀÚ¸®" 
+col º¯°æÈÄ for a15
+select name, rtrim(regexp_replace(name,'(.)','\1-'),'-') "º¯°æÈÄ"  from student 
+	where deptno1 = '101';
+	-- ÀÌ¸§ »çÀÌ¿¡ - À» ³Ö¾î¼­ Ãâ·ÂÇÏ±â
+select regexp_replace('abc     123', '( ){1}','') from dual;
+	-- ¹®ÀÚ¿­ ³»ºÎ¿¡¼­ °ø¹é ¾ø¾Ö±â
+select studno, name, id from student 
+	where id = ltrim(regexp_replace('&id','( ){1}',''),' ');
+	-- °ø¹éÀ» Á¦°Å ÈÄ¿¡ id ºñ±³
+	-- & : ÀÔ·Â¹Ş±â. --
+select regexp_replace('20120324', '([[:digit:]]{4})([[:digit:]]{2})([[:digit:]]{2})','\1:\2:\3') from dual;
+	-- ³¯Â¥ÀÇ ¿øÇÏ´Â Æ÷¸ËÀ¸·Î Ãâ·Â 
+col »ı³â¿ùÀÏ for a8
+select name,jumin, 
+regexp_replace(substr(jumin,1,6), '([[:digit:]]{2})([[:digit:]]{2})([[:digit:]]{2})','\1-\2-\3') "»ı³â¿ùÀÏ" 
+	from student;
+	-- »ıÀÏÀ» YY-MM-DD ·Î Ãâ·Â --
+	
+
+---------------------
+
+select text, regexp_instr(text,'\?') from reg_test;
+select text, regexp_instr(text,'B') from reg_test;
+select regexp_instr('aa bb cc dd ee' , '[^ ]',1,3) from dual;
+	-- °ø¹éÀÌ ¾Æ´Ñ °Í Áß¿¡ ¼¼¹øÂ° ¹®ÀÚ
+select regexp_instr('aa bb cc dd ee' , '[ ]',1,3) from dual;
+	-- °ø¹é ¹®ÀÚ Ã£±â
+
+select text, regexp_instr(text, '[A-Z]{3}',1,1,0) offset0,
+				regexp_instr(text, '[A-Z]{3}',1,1,1) offset1,
+				regexp_instr(text, '[A-Z]{3}',1,1,0,'i') offset2
+		from reg_test;
+select regexp_instr('AAA BBB CCC','[A-Z]{3}',1,1,1) from dual;
+				-- 'AAA BBB CCC' ¿¡¼­ ÆĞÅÏÀÌ ³ªÅ¸³ª´Â ¹®ÀÚ¿­ÀÇ ¾Õ¹®ÀÚÀÇ À§Ä¡ 
+select regexp_instr('AAA BBB CCC','[A-Z]{3}',1,2,1) from dual;
+				-- 'AAA BBB CCC' ¿¡¼­ ÆĞÅÏÀÌ ³ªÅ¸³ª´Â ¹®ÀÚ¿­ÀÇ µŞ¹®ÀÚÀÇ À§Ä¡
+select regexp_instr('abc ade abc adf', '[^ ]+[abc]',1,2) from dual;
+-- regexp_instr( '¹®ÀÚ¿­', 'ÆĞÅÏ', °Ë»öÀ§Ä¡, ¼ø¹ø, [offset, option] )
+
+select regexp_substr('abc*   ***def  %ghi,gkl', '[^ ]+[def]') from dual;
+		-- '[^ ]+[def]' ÀÎ ÆĞÅÏÀ» °¡Áö´Â ¹®ÀÚ¿­ ¹İÈ¯.
+select regexp_substr('abc*   ***def  %ghi,gkl', '[^ ]+,') from dual;
+		-- , ·Î ³¡³ª´Â ¹®ÀÚ¿­ ¹İÈ¯
+select name, hpage, ltrim(regexp_substr(hpage, '/([[:alnum:]]+\.?){3,4}?'),'/') hpagesub 
+	from professor
+	where hpage is not null;
+	-- À¥»çÀÌÆ®¸¦ °¡Áü.
+	-- [:alnum:] : ¼ıÀÚ + ¹®ÀÚ
+	-- [:alpha:] : ¹®ÀÚ
+	
+select text,regexp_count(text, 'a')  from reg_test;
+	-- text ÄÃ·³ÀÇ ³»¿ë¿¡¼­ 3¹ø ÀÎµ¦½º ÀÌÈÄ 'a' ¹®ÀÚÀÇ °³¼ö ¹İÈ¯
+select text,regexp_count(text, 'a','i')  from reg_test;
+	-- text ÄÃ·³ÀÇ ³»¿ë¿¡¼­ 3¹ø ÀÎµ¦½º ÀÌÈÄ 'a' ¹®ÀÚ ´ë/¼Ò¹®ÀÚÀÇ °³¼ö ¹İÈ¯
+select text, 	regexp_count(text,'aa') "R1",
+					regexp_count(text,'a{2}') R2,
+					regexp_count(text,'(a)(a)') R3 from reg_test;
+
+	<¼ıÀÚ °ü·Ã ÇÔ¼ö>
+	ROUND		¹İ¿Ã¸²
+	TRUNC		¹ö¸²
+	MOD			³ª¸ÓÁö
+	CEIL			¿Ã¸²
+	FLOOR		±ÙÁ¢ÇÑ Á¤¼ö
+	POWER		n½Â
+	
+	
+select 	round(12.345) r1,
+			round(12.345,2) r2,
+			round(12.345,-1) r3
+	from dual;
+
+select 	trunc(12.345) r1,
+			trunc(12.345,2) r2,
+			trunc(12.345,-1) r3
+	from dual;
+
+	<³¯Â¥ °ü·Ã ÇÔ¼ö>
+	SYSDATE						ÇöÀç DATE ¹İÈ¯
+	MONTHS_BETWEEN		°³¿ù¼ö Â÷ÀÌ ºñ±³
+	ADD_MONTHS				n¿ù ¸¸Å­ ´õÇÑ DATE¸¦ ¹İÈ¯
+	NEXT_DAY					´Ù°¡¿À´Â n¿äÀÏ¿¡ ÇØ´çÇÏ´Â ³¯Â¥¸¦ ¹İÈ¯
+	LAST_DAY					ÇØ´ç¿ùÀÇ ¸¶Áö¸·³¯
+	ROUND							12½Ã¸¦ ±âÁØÀ¸·Î ³¯Â¥¸¦ ¹İ¿Ã¸². 
+	TRUNC							³¯Â¥ ÀÌÇÏ¸¦ ¹ö¸². 00½Ã 00ºĞ 00ÃÊ.
+
+alter session		set NLS_DATE_FORMAT = 'yyyy-mm-dd:hh24:mi:ss'
+select name, birthday from student;
+		-- session : sqlplus scott/tiger : ÇÏ³ªÀÇ ¼¼¼Ç. ÇÁ·Î±×·¥ÀÇ ÇÏ³ªÀÇ Á¢¼ÓÀÌ ¼¼¼Ç.
+		-- NLS_DATA_FORMAT = 'yyyy-mm-dd:hh24:mi:ss' : ÇöÀç ¼¼¼ÇÀÇ data Å¸ÀÔÀÇ ÇüÅÂ ÁöÁ¤
+																						¼¼¼ÇÀÌ ²÷¾îÁö¸é ´Ù½Ã ¼³Á¤ ÇÊ¿ä.
+
+select MONTHS_BETWEEN('2012-03-01', '2012-05-01') from dual;
+		-- ³¯Â¥ Â÷ÀÌ¸¦ ¿ù´ÜÀ§·Î °è»ê
+select MONTHS_BETWEEN(sysdate, '2015-01-01') from dual;
+select name,birthday, MONTHS_BETWEEN(sysdate,birthday) from student;
+
+select sysdate, ADD_MONTHS(sysdate,3) from dual;
+
+select sysdate, NEXT_DAY(sysdate,'¿ù') from dual;
+
+select sysdate, LAST_DAY(sysdate) from dual;
+
+select sysdate, ROUND(sysdate), TRUNC(sysdate) from dual;
+
+select ROUND(months_between('2015-05-20','2015-02-10')) from dual;
+
+
+	<ÁÖ¿ä µ¥ÀÌÅÍ Çü>
+	CHAR(n)			°íÁ¤±æÀÌ ¹®ÀÚ¿­. ÃÖ´ë 2000bytes
+	VARCHAR2(n)	°¡º¯±æÀÌ ¹®ÀÚ¿­. ÃÖ´ë 4000bytes
+	NUMBER(p,s)	p(ÀüÃ¼ ÀÚ¸®¼ö)´Â 1-38, s(¼Ò¼öÁ¡ ÀÌÇÏ ÀÚ¸®¼ö)´Â -84~127ÀÚ¸® ±îÁö °¡´É.
+	DATE				7Byte. 4712³â 1¿ù 1ÀÏ ~ AD 9999³â 12¿ù 31ÀÏ
+	LONG				°¡º¯±æÀÌ ¹®ÀÚ. ÃÖ´ë 2GB
+	CLOB				°¡º¯±æÀÌ ¹®ÀÚ, ÃÖ´ë 4GB
+	BLOB				°¡º¯±æÀÌ ÀÌÁøµ¥ÀÌÅÍ. ÃÖ´ë 4GB
+	RAW(n)				¿ø½Ã ÀÌÁøµ¥ÀÌÅÍ. ÃÖ´ë 2000bytes
+	LONG RAW(n)	¿ø½Ã ÀÌÁøµ¥ÀÌÅÍ, ÃÖ´ë 2GB
+	BFILE				¿ÜºÎ ÆÄÀÏ¿¡ ÀúÀåµÈ µ¥ÀÌÅÍ. ÃÖ´ë 4GB
+	
+	<Çü º¯È¯ ÇÔ¼ö>
+	TO_CHAR			¹®ÀÚ¿­·Î Çüº¯È¯
+	TO_NUMBER	¼ıÀÚ·Î Çüº¯È¯
+	TO_DATE			DATE·Î Çüº¯È¯
+	
+select	TO_CHAR(sysdate,'yyyy') ³âµµ1,
+			TO_CHAR(sysdate,'rrrr') ³âµµ1,
+			TO_CHAR(sysdate,'yy') ³âµµ1,
+			TO_CHAR(sysdate,'year') ³âµµ1,
+			TO_CHAR(sysdate,'mm') ¿ù1,
+			TO_CHAR(sysdate,'mon') ¿ù2,
+			TO_CHAR(sysdate,'month') ¿ù3,
+			TO_CHAR(sysdate,'dd') ÀÏ1,
+			TO_CHAR(sysdate,'day') ÀÏ2,
+			TO_CHAR(sysdate,'ddth') ¼­¼ö
+	from dual;	
+		-- yyyy : ¿¬µµ¸¦ ¼ıÀÚ 4ÀÚ¸®
+		-- rrrr : ¿¬µµ¸¦ ¼ıÀÚ 4ÀÚ¸® (2000³âµµ ÀÌÀü)
+		-- yy : ¿¬µµ¸¦ ¼ıÀÚ 2ÀÚ¸®·Î Ãâ·Â
+		-- year : ¿¬µµ¸¦ ¿µ¹®ÀÚ·Î Ãâ·Â
+		-- mm : ¿ù
+		-- mon : ¿ù. ¾àÀÚ·Î. ¿µ¹®ÀÏ °æ¿ì¿¡¸¸ ÇØ´ç(Jan,Feb µî)
+		-- month : ¿ù. ¿µ¹®ÀÚ·Î
+		-- dd : ÀÏ.
+		-- day : ÀÏ. ¿µ¹®ÀÚ·Î
+		-- ddth : ¼­¼ö
+		
+select	TO_CHAR(sysdate, 'yyyy-mm-dd HH24:mi:ss ') from dual;
+select	TO_CHAR(sysdate, 'yyyy-mm-dd HH:mi:ss am') from dual;
+		-- HH24 : 24½Ã°£
+		-- HH : 12½Ã°£
+		-- mi : ºĞ
+		-- ss : ÃÊ
+		-- am : ¿ÀÀü,¿ÀÈÄ
+
+select name, birthday from student where TO_CHAR(birthday,'mm') = '03'; 
+
+select name, TO_CHAR(pay*12+bonus, '99,999') ¿¬ºÀ from professor where deptno = 101;
+
+select	TO_CHAR(1234,'99999'),
+			TO_CHAR(1234,'099999'),
+			TO_CHAR(1234,'$99999.99'),
+			TO_CHAR(1234,'9999.99'),
+			TO_CHAR(1234,'9,999.9')
+	from dual;
+		-- 99999 : 5ÀÚ¸®Ãâ·Â
+		-- 099999 : ºóÀÚ¸®¸¦ 0 Ã¤¿î´Ù
+		-- $99999.99 : $ Ç¥½Ã, ¼Ò¼öÁ¡ 2ÀÚ¸®
+		-- 9999.99 : ¼Ò¼öÁ¡ 2ÀÚ¸®
+		-- 9,999.9 : ¼Ò¼öÁ¡ 1ÀÚ¸®. Ãµ´ÜÀ§ ½°Ç¥.
+		
+select TO_NUMBER('12') + 10 from dual;
+		-- ÀÚµ¿Çüº¯È¯ µÇ±â ¶§¹®¿¡, ¿À·ù°¡ ¹ß»ıÇÏÁö ¾ÊÀ½.
+		
+select sysdate, TO_DATE('20150501','yyyymmdd') from dual;
+
+select MONTHS_BETWEEN(TO_DATE('20150630','yyyymmdd'),sysdate) from dual;
+		-- ÇöÀç¿Í 2015-06-30ÀÇ °³¿ù Â÷ÀÌ.
+select name, jumin, 
+	TO_CHAR(TO_DATE(substr(jumin,1,6),'rr-mm-dd'),'rrmmdd') ÁÖ¹Î»ıÀÏ  
+	from student; 
+select name,hiredate,TO_CHAR(pay*12,'9,999'),TO_CHAR(pay*12*1.1,'9,999') from professor where TO_CHAR(hiredate,'yyyy') < 1990;
+
+
+	<ÀÏ¹İ ÇÔ¼ö>
+	NVL		null°ªÀ» ´Ù¸¥°ªÀ¸·Î Ä¡È¯
+	NVL		null°ªÀÎ °æ¿ì¿Í ¾Æ´Ñ°æ¿ì¸¦ ³ª´²¼­ ¹İÈ¯
+	DECODE	Á¶°ÇÀ» ¸¸Á·ÇÒ °æ¿ì, °ª º¯È¯.
+	
+select name, pay*12 + NVL(bonus,0) from professor;
+
+select name,pay,bonus,NVL2(bonus,pay*12+bonus,pay*13) ¿¬ºÀ from professor;
+
+select name,deptno,DECODE(deptno, 101, 'ÄÄÇ»ÅÍ°øÇĞ°ú', ' ') ÇĞ°ú¸í
+	from professor;
+	
+select name,deptno,DECODE(deptno, 101, 'ÄÄÇ»ÅÍ°øÇĞ°ú', '±âÅ¸ÇĞ°ú') ÇĞ°ú¸í
+	from professor;
+select name, deptno, 
+	DECODE(deptno, 		101, 'ÄÄÇ»ÅÍ°øÇĞ°ú', 
+									102, '¸ÖÆ¼¹Ìµğ¾î°øÇĞ°ú',
+									103,  '¼ÒÇÁÆ®¿ş¾î°øÇĞ°ú', 
+									'±âÅ¸ÇĞ°ú')
+ 	from professor;
+select name, deptno, DECODE(deptno, 101, decode(name,'Á¶ÀÎÇü','¼®ÁÂ±³¼öÈÄº¸')) 
+from professor;
+select name, jumin, DECODE(substr(jumin,7,1),1,'³²ÀÚ',2,'¿©ÀÚ',' ') ¼ºº° 
+	from student where deptno1=101;
+select name, tel, DECODE(substr(tel,1,instr(tel,')')-1),
+	02,'¼­¿ï',		031,'°æ±â',		051,'ºÎ»ê',		052,'¿ï»ê',		055,'°æ³²'	)	Áö¿ª¸í
+	from student where deptno1 = 101;
+select name, DECODE(deptno,101,DECODE(name,'Á¶ÀÎÇü','¼®ÁÂ±³¼ö ÈÄº¸','ÈÄº¸¾Æ´Ô'),'ÈÄº¸ÇĞ°ú¾Æ´Ô')
+	 from professor;
+
+	<case Á¶°Ç¹®>
+select name, tel, CASE( substr(tel,1,instr(tel,')')-1) )
+		when '02' then '¼­¿ï'
+		when '031' then '°æ±â'
+		when '051' then 'ºÎ»ê'
+		when '052' then '¿ï»ê'
+		when '055' then '°æ³²'
+		else '±âÅ¸'
+	end Áö¿ª¸í 
+from student ;
+
+select name, substr(jumin,3,2) Ãâ»ı¿ù,
+	case	when ( substr(jumin,3,2)) between '01' and '03'
+				then '1/4ºĞ±â'
+			when ( substr(jumin,3,2)) between '04' and '06'
+				then '2/4ºĞ±â'
+			when ( substr(jumin,3,2)) between '07' and '09'
+				then '3/4ºĞ±â'
+			when ( substr(jumin,3,2)) between '10' and '12'
+				then '4/4ºĞ±â'
+			else '¾ÈÅÂ¾î³²'
+			end "ºĞ±âº°"
+	from student;
+select profno, name, pay, 
+	case
+		when pay<=200		then		'4'
+		when pay<=300		then		'3'
+		when pay<=400		then		'2'
+		else			'1'
+	end || '±Ş' µî±Ş
+from professor;
+select name, weight, height, (height-100)*0.9 Ç¥ÁØÃ¼Áß,
+	case 
+		when (weight - (height-100)*0.9)/(height-100)*0.9 < 10		then	'Á¤»ó'
+		when (weight - (height-100)*0.9)/(height-100)*0.9 < 20		then	'°úÃ¼Áß'
+		else			'ºñ¸¸'
+	end "ºñ¸¸µµ"
+from student;
+
+
+
+-----
+create view hello as select name from student;

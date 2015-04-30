@@ -1,0 +1,665 @@
+Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation. All rights reserved.
+
+C:\Users\admin>sqlplus / as sysdba
+
+SQL*Plus: Release 11.2.0.1.0 Production on 월 4월 27 12:00:17 2015
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+
+다음에 접속됨:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> alter user scott account unlock;
+
+사용자가 변경되었습니다.
+
+SQL> conn scott/tiger
+ERROR:
+ORA-28001: the password has expired
+
+
+scott에 대한 비밀번호를 변경합니다.
+새 비밀번호:
+새 비밀번호 다시 입력:
+비밀번호가 변경되었습니다.
+연결되었습니다.
+SQL> conn scott/tiger
+연결되었습니다.
+SQL> show user;
+USER은 "SCOTT"입니다
+SQL> set sqlprompt "_USER>"
+SCOTT>@c:\test_data.sql
+
+
+
+.....
+.....
+
+1 개의 행이 만들어졌습니다
+
+
+커밋이 완료되었습니다.
+
+
+SCOTT>select table_name from tabs;
+
+TABLE_NAME
+------------------------------
+MEMBER
+PANMAE
+PRODUCT
+TEST_ENABLE
+TEST_VALIDATE
+TEST_NOVALIDATE
+DML_ERR_TEST
+P_TOTAL
+PT_02
+PT_01
+P_02
+
+TABLE_NAME
+------------------------------
+P_01
+REG_TEST
+P_GRADE
+EXAM_01
+HAKJUM
+GOGAK
+GIFT
+CAL
+DEPT2
+EMP2
+STUDENT
+
+TABLE_NAME
+------------------------------
+DEPARTMENT
+PROFESSOR
+DEPT
+EMP
+SALGRADE
+BONUS
+
+28 개의 행이 선택되었습니다.
+
+
+SCOTT>desc emp
+
+ 이름                                      널?      유형
+ ----------------------------------------- -------- ----------------------------
+
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+
+SCOTT>select * from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM
+---------- ---------- --------- ---------- ---------- ---------- ----------
+    DEPTNO
+----------
+      7369 SMITH      CLERK           7902 1980-12-17        800
+        20
+
+      7499 ALLEN      SALESMAN        7698 1981-02-20       1600        300
+        30
+
+      7521 WARD       SALESMAN        7698 1982-02-22       1250        500
+        30
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM
+---------- ---------- --------- ---------- ---------- ---------- ----------
+    DEPTNO
+----------
+      7566 JONES      MANAGER         7839 1981-04-02       2975
+        20
+
+      7654 MARTIN     SALESMAN        7698 1981-09-28       1250       1400
+        30
+
+      7698 BLAKE      MANAGER         7839 1981-05-01       2850
+        30
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM
+---------- ---------- --------- ---------- ---------- ---------- ----------
+    DEPTNO
+----------
+      7782 CLARK      MANAGER         7839 1981-06-09       2450
+        10
+
+      7788 SCOTT      ANALYST         7566 1987-04-17       3000
+        20
+
+      7839 KING       PRESIDENT            1981-11-17       5000
+        10
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM
+---------- ---------- --------- ---------- ---------- ---------- ----------
+    DEPTNO
+----------
+      7844 TURNER     SALESMAN        7698 1981-09-08       1500          0
+        30
+
+      7876 ADAMS      CLERK           7788 1987-05-23       1100
+        20
+
+      7900 JAMES      CLERK           7698 1981-12-03        950
+        30
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM
+---------- ---------- --------- ---------- ---------- ---------- ----------
+    DEPTNO
+----------
+      7902 FORD       ANALYST         7566 1981-12-03       3000
+        20
+
+      7934 MILLER     CLERK           7782 1982-01-23       1300
+        10
+
+
+14 개의 행이 선택되었습니다.
+
+
+
+SCOTT>set line 50
+SCOTT>select * from emp;
+
+     EMPNO ENAME      JOB              MGR
+---------- ---------- --------- ----------
+HIREDATE          SAL       COMM     DEPTNO
+---------- ---------- ---------- ----------
+      7369 SMITH      CLERK           7902
+1980-12-17        800                    20
+
+      7499 ALLEN      SALESMAN        7698
+1981-02-20       1600        300         30
+
+      7521 WARD       SALESMAN        7698
+1982-02-22       1250        500         30
+
+
+     EMPNO ENAME      JOB              MGR
+---------- ---------- --------- ----------
+HIREDATE          SAL       COMM     DEPTNO
+---------- ---------- ---------- ----------
+      7566 JONES      MANAGER         7839
+1981-04-02       2975                    20
+
+      7654 MARTIN     SALESMAN        7698
+1981-09-28       1250       1400         30
+
+      7698 BLAKE      MANAGER         7839
+1981-05-01       2850                    30
+
+
+     EMPNO ENAME      JOB              MGR
+---------- ---------- --------- ----------
+HIREDATE          SAL       COMM     DEPTNO
+---------- ---------- ---------- ----------
+      7782 CLARK      MANAGER         7839
+1981-06-09       2450                    10
+
+      7788 SCOTT      ANALYST         7566
+1987-04-17       3000                    20
+
+      7839 KING       PRESIDENT
+1981-11-17       5000                    10
+
+
+     EMPNO ENAME      JOB              MGR
+---------- ---------- --------- ----------
+HIREDATE          SAL       COMM     DEPTNO
+---------- ---------- ---------- ----------
+      7844 TURNER     SALESMAN        7698
+1981-09-08       1500          0         30
+
+      7876 ADAMS      CLERK           7788
+1987-05-23       1100                    20
+
+      7900 JAMES      CLERK           7698
+1981-12-03        950                    30
+
+
+     EMPNO ENAME      JOB              MGR
+---------- ---------- --------- ----------
+HIREDATE          SAL       COMM     DEPTNO
+---------- ---------- ---------- ----------
+      7902 FORD       ANALYST         7566
+1981-12-03       3000                    20
+
+      7934 MILLER     CLERK           7782
+1982-01-23       1300                    10
+
+
+14 rows selected.
+
+SCOTT>set line 200
+SCOTT>col empno for 9999
+SCOTT>set pagesize 10
+SCOTT>select * from emp;
+
+EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM     DEPTNO
+----- ---------- --------- ---------- ---------- ---------- ---------- ----------
+ 7369 SMITH      CLERK           7902 1980-12-17        800                    20
+ 7499 ALLEN      SALESMAN        7698 1981-02-20       1600        300         30
+ 7521 WARD       SALESMAN        7698 1982-02-22       1250        500         30
+ 7566 JONES      MANAGER         7839 1981-04-02       2975                    20
+ 7654 MARTIN     SALESMAN        7698 1981-09-28       1250       1400         30
+ 7698 BLAKE      MANAGER         7839 1981-05-01       2850                    30
+ 7782 CLARK      MANAGER         7839 1981-06-09       2450                    10
+
+EMPNO ENAME      JOB              MGR HIREDATE          SAL       COMM     DEPTNO
+----- ---------- --------- ---------- ---------- ---------- ---------- ----------
+ 7788 SCOTT      ANALYST         7566 1987-04-17       3000                    20
+ 7839 KING       PRESIDENT            1981-11-17       5000                    10
+ 7844 TURNER     SALESMAN        7698 1981-09-08       1500          0         30
+ 7876 ADAMS      CLERK           7788 1987-05-23       1100                    20
+ 7900 JAMES      CLERK           7698 1981-12-03        950                    30
+ 7902 FORD       ANALYST         7566 1981-12-03       3000                    20
+ 7934 MILLER     CLERK           7782 1982-01-23       1300                    10
+
+14 rows selected.
+
+SCOTT>  select '학번 : ', studno, '이름 : ', name, grade, '학년'
+  2     from student ;
+
+'학번:'     STUDNO '이름:' NAME            GRADE '학
+------- ---------- ------- ---------- ---------- ----
+학번 :        9411 이름 :  서진수              4 학년
+학번 :        9412 이름 :  서재수              4 학년
+학번 :        9413 이름 :  이미경              4 학년
+학번 :        9414 이름 :  김재수              4 학년
+학번 :        9415 이름 :  박동호              4 학년
+학번 :        9511 이름 :  김신영              3 학년
+학번 :        9512 이름 :  신은경              3 학년
+
+'학번:'     STUDNO '이름:' NAME            GRADE '학
+------- ---------- ------- ---------- ---------- ----
+학번 :        9513 이름 :  오나라              3 학년
+학번 :        9514 이름 :  구유미              3 학년
+학번 :        9515 이름 :  임세현              3 학년
+학번 :        9611 이름 :  일지매              2 학년
+학번 :        9612 이름 :  김진욱              2 학년
+학번 :        9613 이름 :  안광훈              2 학년
+학번 :        9614 이름 :  김문호              2 학년
+
+'학번:'     STUDNO '이름:' NAME            GRADE '학
+------- ---------- ------- ---------- ---------- ----
+학번 :        9615 이름 :  노정호              2 학년
+학번 :        9711 이름 :  이윤나              1 학년
+학번 :        9712 이름 :  안은수              1 학년
+학번 :        9713 이름 :  인영민              1 학년
+학번 :        9714 이름 :  김주현              1 학년
+학번 :        9715 이름 :  허우                1 학년
+
+20 rows selected.
+
+
+SCOTT>select name, '교수님 졸려요~' from professor;
+
+NAME       '교수님졸려요~
+---------- --------------
+조인형     교수님 졸려요~
+박승곤     교수님 졸려요~
+송도권     교수님 졸려요~
+양선희     교수님 졸려요~
+김영조     교수님 졸려요~
+주승재     교수님 졸려요~
+김도형     교수님 졸려요~
+
+NAME       '교수님졸려요~
+---------- --------------
+나한열     교수님 졸려요~
+김현정     교수님 졸려요~
+심슨       교수님 졸려요~
+최슬기     교수님 졸려요~
+박원범     교수님 졸려요~
+차범철     교수님 졸려요~
+바비       교수님 졸려요~
+
+NAME       '교수님졸려요~
+---------- --------------
+전민       교수님 졸려요~
+허은       교수님 졸려요~
+
+16 rows selected.
+
+
+
+SCOTT>select name,POSITION  from professor;
+
+NAME       POSITION
+---------- ----------
+조인형     정교수
+박승곤     조교수
+송도권     전임강사
+양선희     전임강사
+김영조     조교수
+주승재     정교수
+김도형     정교수
+
+NAME       POSITION
+---------- ----------
+나한열     조교수
+김현정     전임강사
+심슨       정교수
+최슬기     조교수
+박원범     조교수
+차범철     전임강사
+바비       정교수
+
+NAME       POSITION
+---------- ----------
+전민       전임강사
+허은       조교수
+
+16 rows selected.
+
+SCOTT>select ename,'님 반갑습니다!', hiredate from emp;
+
+ENAME      '님반갑습니다! HIREDATE
+---------- -------------- ----------
+SMITH      님 반갑습니다! 1980-12-17
+ALLEN      님 반갑습니다! 1981-02-20
+WARD       님 반갑습니다! 1982-02-22
+JONES      님 반갑습니다! 1981-04-02
+MARTIN     님 반갑습니다! 1981-09-28
+BLAKE      님 반갑습니다! 1981-05-01
+CLARK      님 반갑습니다! 1981-06-09
+
+ENAME      '님반갑습니다! HIREDATE
+---------- -------------- ----------
+SCOTT      님 반갑습니다! 1987-04-17
+KING       님 반갑습니다! 1981-11-17
+TURNER     님 반갑습니다! 1981-09-08
+ADAMS      님 반갑습니다! 1987-05-23
+JAMES      님 반갑습니다! 1981-12-03
+FORD       님 반갑습니다! 1981-12-03
+MILLER     님 반갑습니다! 1982-01-23
+
+14 rows selected.
+
+SCOTT>select studno "학번", name "이름", profno "지도교수번호" from student;
+
+      학번 이름       지도교수번호
+---------- ---------- ------------
+      9411 서진수             1001
+      9412 서재수             2001
+      9413 이미경             3002
+      9414 김재수             4001
+      9415 박동호             4003
+      9511 김신영             1002
+      9512 신은경             2002
+
+      학번 이름       지도교수번호
+---------- ---------- ------------
+      9513 오나라             4003
+      9514 구유미             4007
+      9515 임세현             4001
+      9611 일지매             1002
+      9612 김진욱             2001
+      9613 안광훈             4002
+      9614 김문호             4003
+
+      학번 이름       지도교수번호
+---------- ---------- ------------
+      9615 노정호             4007
+      9711 이윤나
+      9712 안은수
+      9713 인영민
+      9714 김주현
+      9715 허우
+
+20 rows selected.
+
+SCOTT>select studno 학번, name 이름, profno 지도교수번호 from student;
+
+      학번 이름       지도교수번호
+---------- ---------- ------------
+      9411 서진수             1001
+      9412 서재수             2001
+      9413 이미경             3002
+      9414 김재수             4001
+      9415 박동호             4003
+      9511 김신영             1002
+      9512 신은경             2002
+
+      학번 이름       지도교수번호
+---------- ---------- ------------
+      9513 오나라             4003
+      9514 구유미             4007
+      9515 임세현             4001
+      9611 일지매             1002
+      9612 김진욱             2001
+      9613 안광훈             4002
+      9614 김문호             4003
+
+      학번 이름       지도교수번호
+---------- ---------- ------------
+      9615 노정호             4007
+      9711 이윤나
+      9712 안은수
+      9713 인영민
+      9714 김주현
+      9715 허우
+
+20 rows selected.
+
+SCOTT>select empno 사원번호, ename 사원명, job 직업 from emp;
+
+  사원번호 사원명     직업
+---------- ---------- ---------
+      7369 SMITH      CLERK
+      7499 ALLEN      SALESMAN
+      7521 WARD       SALESMAN
+      7566 JONES      MANAGER
+      7654 MARTIN     SALESMAN
+      7698 BLAKE      MANAGER
+      7782 CLARK      MANAGER
+
+  사원번호 사원명     직업
+---------- ---------- ---------
+      7788 SCOTT      ANALYST
+      7839 KING       PRESIDENT
+      7844 TURNER     SALESMAN
+      7876 ADAMS      CLERK
+      7900 JAMES      CLERK
+      7902 FORD       ANALYST
+      7934 MILLER     CLERK
+
+14 rows selected.
+
+SCOTT>select empno 사원번호, ename 사원명, job 직업 from emp;
+
+  사원번호 사원명     직업
+---------- ---------- ---------
+      7369 SMITH      CLERK
+      7499 ALLEN      SALESMAN
+      7521 WARD       SALESMAN
+      7566 JONES      MANAGER
+      7654 MARTIN     SALESMAN
+      7698 BLAKE      MANAGER
+      7782 CLARK      MANAGER
+
+  사원번호 사원명     직업
+---------- ---------- ---------
+      7788 SCOTT      ANALYST
+      7839 KING       PRESIDENT
+      7844 TURNER     SALESMAN
+      7876 ADAMS      CLERK
+      7900 JAMES      CLERK
+      7902 FORD       ANALYST
+      7934 MILLER     CLERK
+
+14 rows selected.
+        
+  SCOTT>select deptno "부 서 #", dname "부 서 명", loc "위   치" from dept;
+
+   부 서 # 부 서 명       위   치
+---------- -------------- -------------
+        10 ACCOUNTING     NEW YORK
+        20 RESEARCH       DALLAS
+        30 SALES          CHICAGO
+        40 OPERATIONS     BOSTON
+        
+SQL> select distinct profno from student;
+
+    PROFNO
+----------
+
+      2001
+      4002
+      1001
+      1002
+      3002
+      4003
+      4007
+      4001
+      2002
+
+10 개의 행이 선택되었습니다.
+
+SQL> select distinct deptno1 from student;
+
+   DEPTNO1
+----------
+       102
+       201
+       301
+       101
+       202
+       103
+
+6 개의 행이 선택되었습니다.
+
+SQL> select distinct deptno1, deptno2 from student;
+
+   DEPTNO1    DEPTNO2
+---------- ----------
+       101
+       101        201
+       201
+       102
+       102        201
+       301        101
+       202
+       103        203
+       301
+       103
+
+10 개의 행이 선택되었습니다.
+
+SQL> select name ||' '|| position "교  수" from professor;
+
+교  수
+---------------------
+조인형 정교수
+박승곤 조교수
+송도권 전임강사
+양선희 전임강사
+김영조 조교수
+주승재 정교수
+김도형 정교수
+나한열 조교수
+김현정 전임강사
+심슨 정교수
+최슬기 조교수
+
+교  수
+---------------------
+박원범 조교수
+차범철 전임강사
+바비 정교수
+전민 전임강사
+허은 조교수
+
+16 개의 행이 선택되었습니다.
+
+
+SQL> select name || '의 키는' || height || 'cm, 몸무게는 ' || weight || 'kg 입니다.'
+  2             "학생의 키와 몸무게" from student;
+
+학생의 키와 몸무게
+-------------------------------------------------------------------------------------
+
+서진수의 키는180cm, 몸무게는 72kg 입니다.
+서재수의 키는172cm, 몸무게는 64kg 입니다.
+이미경의 키는168cm, 몸무게는 52kg 입니다.
+김재수의 키는177cm, 몸무게는 83kg 입니다.
+박동호의 키는182cm, 몸무게는 70kg 입니다.
+김신영의 키는164cm, 몸무게는 48kg 입니다.
+신은경의 키는161cm, 몸무게는 42kg 입니다.
+오나라의 키는177cm, 몸무게는 55kg 입니다.
+구유미의 키는160cm, 몸무게는 58kg 입니다.
+임세현의 키는171cm, 몸무게는 54kg 입니다.
+일지매의 키는182cm, 몸무게는 72kg 입니다.
+김진욱의 키는171cm, 몸무게는 70kg 입니다.
+안광훈의 키는175cm, 몸무게는 82kg 입니다.
+김문호의 키는166cm, 몸무게는 51kg 입니다.
+노정호의 키는184cm, 몸무게는 62kg 입니다.
+이윤나의 키는162cm, 몸무게는 48kg 입니다.
+안은수의 키는175cm, 몸무게는 63kg 입니다.
+인영민의 키는173cm, 몸무게는 69kg 입니다.
+김주현의 키는179cm, 몸무게는 81kg 입니다.
+허우의 키는163cm, 몸무게는 51kg 입니다.
+
+20 개의 행이 선택되었습니다.
+
+
+SQL> select name || '(' || position || '), ' || name || '`' || position || '`' 교수님 from professor;
+
+교수님
+----------------------------------------------
+조인형(정교수), 조인형`정교수`
+박승곤(조교수), 박승곤`조교수`
+송도권(전임강사), 송도권`전임강사`
+양선희(전임강사), 양선희`전임강사`
+김영조(조교수), 김영조`조교수`
+주승재(정교수), 주승재`정교수`
+김도형(정교수), 김도형`정교수`
+나한열(조교수), 나한열`조교수`
+김현정(전임강사), 김현정`전임강사`
+심슨(정교수), 심슨`정교수`
+최슬기(조교수), 최슬기`조교수`
+박원범(조교수), 박원범`조교수`
+차범철(전임강사), 차범철`전임강사`
+바비(정교수), 바비`정교수`
+전민(전임강사), 전민`전임강사`
+허은(조교수), 허은`조교수`
+
+16 개의 행이 선택되었습니다.
+
+
+SQL> select ename 사원이름, sal 현재급여, sal * 1.1 인상예상급여 from emp;
+
+사원이름     현재급여 인상예상급여
+---------- ---------- ------------
+SMITH             800          880
+ALLEN            1600         1760
+WARD             1250         1375
+JONES            2975       3272.5
+MARTIN           1250         1375
+BLAKE            2850         3135
+CLARK            2450         2695
+SCOTT            3000         3300
+KING             5000         5500
+TURNER           1500         1650
+ADAMS            1100         1210
+JAMES             950         1045
+FORD             3000         3300
+MILLER           1300         1430
+
+

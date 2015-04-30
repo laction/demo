@@ -1,0 +1,20 @@
+java.lang.Exception: 예외 강제로 또또 발생
+	at p150420_Chapter14.Ex14_08_ErrLogEx.method2(Ex14_08_ErrLogEx.java:16)
+	at p150420_Chapter14.Ex14_08_ErrLogEx.method1(Ex14_08_ErrLogEx.java:12)
+	at p150420_Chapter14.Ex14_08_ErrLogEx.main(Ex14_08_ErrLogEx.java:9)
+java.lang.Exception: 예외 강제로 또또 발생
+	at p150420_Chapter14.Ex14_08_ErrLogEx.method2(Ex14_08_ErrLogEx.java:16)
+	at p150420_Chapter14.Ex14_08_ErrLogEx.method1(Ex14_08_ErrLogEx.java:12)
+	at p150420_Chapter14.Ex14_08_ErrLogEx.main(Ex14_08_ErrLogEx.java:9)
+java.lang.Exception: 예외 강제로 또또 발생
+	at p150420_Chapter14.Ex14_08_ErrLogEx.method2(Ex14_08_ErrLogEx.java:16)
+	at p150420_Chapter14.Ex14_08_ErrLogEx.method1(Ex14_08_ErrLogEx.java:12)
+	at p150420_Chapter14.Ex14_08_ErrLogEx.main(Ex14_08_ErrLogEx.java:9)
+java.lang.Exception: 예외 강제로 또또 발생
+	at p150420_Chapter14.Ex14_08_ErrLogEx.method2(Ex14_08_ErrLogEx.java:16)
+	at p150420_Chapter14.Ex14_08_ErrLogEx.method1(Ex14_08_ErrLogEx.java:12)
+	at p150420_Chapter14.Ex14_08_ErrLogEx.main(Ex14_08_ErrLogEx.java:9)
+java.lang.Exception: 예외 강제로 또또 발생
+	at p150420_Chapter14.Ex14_08_ErrLogEx.method2(Ex14_08_ErrLogEx.java:16)
+	at p150420_Chapter14.Ex14_08_ErrLogEx.method1(Ex14_08_ErrLogEx.java:12)
+	at p150420_Chapter14.Ex14_08_ErrLogEx.main(Ex14_08_ErrLogEx.java:9)
